@@ -1,0 +1,75 @@
+---
+import Vitrine from "../layouts/Vitrine.astro";
+
+const blocs = [
+  {
+    titre: "Éditeur",
+    lignes: [
+      "Le Fournil de Margot — SARL au capital de 10 000 €",
+      "14 rue de la Charité, 69002 Lyon",
+      "RCS Lyon 000 000 000 — TVA FR00000000000",
+      "bonjour@fournildemargot.fr · 04 78 00 00 00",
+    ],
+  },
+  {
+    titre: "Responsable de la publication",
+    lignes: ["Margot Delaunay, gérante."],
+  },
+  {
+    titre: "Hébergeur",
+    lignes: [
+      "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.",
+    ],
+  },
+  {
+    titre: "Propriété intellectuelle",
+    lignes: [
+      "Les textes, la mise en page et le code de ce site sont sous licence MIT.",
+      "Les photographies proviennent d'Openverse et de Wikimedia Commons et restent soumises à leurs licences respectives — CC0, CC BY ou CC BY-SA. L'auteur et la licence de chacune figurent dans le fichier CREDITS.json du dépôt.",
+    ],
+  },
+  {
+    titre: "Données personnelles",
+    lignes: [
+      "Aucune donnée n'est collectée à votre insu : ce site ne dépose aucun cookie de mesure d'audience ni de publicité.",
+      "Les commandes passées en boutique sont conservées dix ans, durée légale de conservation des pièces comptables.",
+    ],
+  },
+];
+---
+
+<Vitrine
+  title="Mentions légales — Le Fournil de Margot"
+  description="Éditeur, hébergeur, propriété intellectuelle et données personnelles du site du Fournil de Margot."
+>
+  <div class="mx-auto w-full max-w-[820px] px-6 py-16 lg:px-[72px]">
+    <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
+      INFORMATIONS LÉGALES
+    </p>
+    <h1 class="mt-3 font-display text-[36px] font-semibold sm:text-[44px]">
+      Mentions légales
+    </h1>
+
+    <p
+      class="mt-8 rounded-2xl border border-[#E8DCC8] bg-[#FDF6E7] p-5 text-[14px] leading-relaxed text-[#7A5B1E]"
+    >
+      Contenu de démonstration, à ne pas mettre en ligne tel quel. Les mentions
+      légales engagent leur éditeur : remplacez le numéro RCS, la TVA
+      intracommunautaire et les coordonnées par les vôtres, et faites vérifier
+      l'ensemble.
+    </p>
+
+    <div class="mt-12 flex flex-col gap-10">
+      {
+        blocs.map((bloc) => (
+          <section class="flex flex-col gap-3">
+            <h2 class="font-display text-xl font-semibold">{bloc.titre}</h2>
+            {bloc.lignes.map((ligne) => (
+              <p class="text-base leading-relaxed text-[var(--color-muted)]">{ligne}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Vitrine>

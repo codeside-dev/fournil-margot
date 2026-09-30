@@ -1,0 +1,70 @@
+---
+import Vitrine from "../layouts/Vitrine.astro";
+
+const blocs = [
+  {
+    titre: "Retrait au fournil",
+    lignes: [
+      "Commandez avant 10h, retirez l'après-midi même, du mardi au dimanche.",
+      "14 rue de la Charité, 69002 Lyon — présentez votre nom et le numéro de commande.",
+      "Les commandes non retirées le jour prévu sont remises en vente le lendemain.",
+    ],
+  },
+  {
+    titre: "Livraison à Lyon",
+    lignes: [
+      "Livraison le jour même dans les 2e, 3e, 6e et 7e arrondissements, pour toute commande passée avant 9h.",
+      "Offerte dès 30 € d'achat, 4 € en dessous.",
+      "Créneaux de 14h à 19h, précisés par courriel le matin de la livraison.",
+    ],
+  },
+  {
+    titre: "Expédition",
+    lignes: [
+      "Les pains de longue conservation, biscuits et confitures partent par Colissimo en France métropolitaine.",
+      "Expédition le mardi et le jeudi, réception sous 48 à 72 heures. Les viennoiseries ne sont pas expédiées.",
+    ],
+  },
+  {
+    titre: "Allergènes",
+    lignes: [
+      "Tous nos produits sont fabriqués dans un atelier manipulant blé, œuf, lait, sésame et fruits à coque.",
+      "La composition et les allergènes de chaque article figurent sur sa fiche produit.",
+    ],
+  },
+];
+---
+
+<Vitrine
+  title="Livraison et retrait — Le Fournil de Margot"
+  description="Retrait au fournil, livraison à Lyon le jour même, expédition des pains de conservation. Zones, délais et frais."
+>
+  <div class="mx-auto w-full max-w-[820px] px-6 py-16 lg:px-[72px]">
+    <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
+      COMMANDES
+    </p>
+    <h1 class="mt-3 font-display text-[36px] font-semibold sm:text-[44px]">
+      Livraison et retrait
+    </h1>
+
+    <p
+      class="mt-8 rounded-2xl border border-[#E8DCC8] bg-[#FDF6E7] p-5 text-[14px] leading-relaxed text-[#7A5B1E]"
+    >
+      Contenu de démonstration. Zones, seuils et créneaux sont inventés : à
+      ajuster selon ce que vous pouvez réellement tenir.
+    </p>
+
+    <div class="mt-12 flex flex-col gap-10">
+      {
+        blocs.map((bloc) => (
+          <section class="flex flex-col gap-3">
+            <h2 class="font-display text-xl font-semibold">{bloc.titre}</h2>
+            {bloc.lignes.map((ligne) => (
+              <p class="text-base leading-relaxed text-[var(--color-muted)]">{ligne}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Vitrine>

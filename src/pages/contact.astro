@@ -1,0 +1,67 @@
+---
+import Vitrine from "../layouts/Vitrine.astro";
+
+const horaires = [
+  { jour: "Mardi – Vendredi", heures: "7h – 19h30" },
+  { jour: "Samedi", heures: "7h – 20h" },
+  { jour: "Dimanche", heures: "7h – 13h" },
+  { jour: "Lundi", heures: "Fermé" },
+];
+---
+
+<Vitrine
+  title="Contact — Le Fournil de Margot"
+  description="Adresse, téléphone, courriel et horaires du Fournil de Margot, 14 rue de la Charité à Lyon 6e."
+>
+  <div class="mx-auto w-full max-w-[820px] px-6 py-16 lg:px-[72px]">
+    <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
+      NOUS TROUVER
+    </p>
+    <h1 class="mt-3 font-display text-[36px] font-semibold sm:text-[44px]">
+      Contact
+    </h1>
+
+    <div class="mt-10 grid gap-10 sm:grid-cols-2">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-display text-xl font-semibold">Le fournil</h2>
+        <p class="text-base leading-relaxed text-[var(--color-muted)]">
+          14 rue de la Charité<br />69002 Lyon
+        </p>
+        <p class="text-base leading-relaxed text-[var(--color-muted)]">
+          <a href="tel:+33478000000" class="underline transition hover:text-[var(--color-ink)]">
+            04 78 00 00 00
+          </a><br />
+          <a href="mailto:bonjour@fournildemargot.fr" class="underline transition hover:text-[var(--color-ink)]">
+            bonjour@fournildemargot.fr
+          </a>
+        </p>
+        <p class="text-sm text-[var(--color-muted)]">
+          Métro B — arrêt Plaine. Stationnement payant rue de la Charité.
+        </p>
+      </div>
+
+      <div class="rounded-2xl bg-[var(--color-band)] p-[30px]">
+        <h2 class="mb-4 font-display text-xl font-semibold">
+          Horaires d'ouverture
+        </h2>
+        <dl class="flex flex-col gap-3">
+          {
+            horaires.map((h) => (
+              <div class="flex items-center justify-between">
+                <dt class="text-[15px] text-[var(--color-muted)]">{h.jour}</dt>
+                <dd class="font-mono text-[15px]">{h.heures}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+
+    <p
+      class="mt-12 rounded-2xl border border-[#E8DCC8] bg-[#FDF6E7] p-5 text-[14px] leading-relaxed text-[#7A5B1E]"
+    >
+      Contenu de démonstration : l'adresse, le téléphone et le courriel sont
+      fictifs, tout comme les indications d'accès.
+    </p>
+  </div>
+</Vitrine>
