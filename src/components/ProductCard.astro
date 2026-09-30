@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  image: ImageMetadata;
+  category: string;
+  name: string;
+  description: string;
+  price: string;
+}
+
+const { image, category, name, description, price } = Astro.props;
+---
+
+<article
+  class="flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-white p-[18px]"
+>
+  <div class="overflow-hidden rounded-xl bg-[var(--color-band)]">
+    <Image
+      src={image}
+      alt={name}
+      widths={[420, 640, 840]}
+      sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 90vw"
+      class="h-[150px] w-full object-cover"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="flex flex-1 flex-col gap-2.5">
+    <p
+      class="font-mono text-[11px] font-semibold tracking-[1px] text-[var(--color-accent)]"
+    >
+      {category}
+    </p>
+    <h3 class="font-display text-[21px] font-semibold leading-tight">
+      {name}
+    </h3>
+    <p class="text-sm leading-relaxed text-[var(--color-muted)]">
+      {description}
+    </p>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <span class="text-lg font-semibold">{price}</span>
+    <button
+      type="button"
+      class="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-[13px] font-semibold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+    >
+      Ajouter
+    </button>
+  </div>
+</article>

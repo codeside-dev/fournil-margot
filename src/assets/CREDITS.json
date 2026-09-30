@@ -1,0 +1,65 @@
+[
+  {
+    "slot": "tradition",
+    "query": "sourdough bread loaf crust",
+    "title": "Another shot at the bread baked in the ad hoc oven",
+    "creator": "Jarkko Laine",
+    "license": "BY 2.0",
+    "source": "https://www.flickr.com/photos/87308984@N00/7399880790",
+    "file": "tradition.png"
+  },
+  {
+    "slot": "campagne",
+    "query": "seeded bread loaf grains",
+    "title": "Nine-Grain Sourdough Bread -- HMM -- Explored 22 Aug 2017",
+    "creator": "Thad Zajdowicz",
+    "license": "BY 2.0",
+    "source": "https://www.flickr.com/photos/40632439@N00/36655400146",
+    "file": "campagne.png"
+  },
+  {
+    "slot": "tarte",
+    "query": "apple tart",
+    "title": "Mmm...cookie dough apple tarts",
+    "creator": "jeffreyw",
+    "license": "BY 2.0",
+    "source": "https://www.flickr.com/photos/7927684@N03/5065477191",
+    "file": "tarte.png"
+  },
+  {
+    "slot": "hero",
+    "query": "bakery shop interior counter",
+    "title": "File:Bundesarchiv B 145 Bild-F079097-0017, Göttingen, Bäckerei.jpg",
+    "creator": "anonyme",
+    "license": "CC BY-SA 3.0 de",
+    "source": "https://commons.wikimedia.org/wiki/File:Bundesarchiv_B_145_Bild-F079097-0017,_G%C3%B6ttingen,_B%C3%A4ckerei.jpg",
+    "file": "hero.png"
+  },
+  {
+    "slot": "seigle",
+    "query": "rye bread loaf",
+    "title": "File:A loaf of wheat and rye bread.jpg",
+    "creator": "Tarasna0922",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:A_loaf_of_wheat_and_rye_bread.jpg",
+    "file": "seigle.png"
+  },
+  {
+    "slot": "chocolat",
+    "query": "pain au chocolat",
+    "title": "File:Pain Au Chocolat - Caffè Nero 2026-01-04.jpg",
+    "creator": "Andy Li",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pain_Au_Chocolat_-_Caff%C3%A8_Nero_2026-01-04.jpg",
+    "file": "chocolat.png"
+  },
+  {
+    "slot": "croissant",
+    "query": "croissants basket",
+    "title": "File:American Breakfast (28188218105).jpg",
+    "creator": "Debbie Tingzon from Doha, Qatar",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:American_Breakfast_(28188218105).jpg",
+    "file": "croissant.png"
+  }
+]

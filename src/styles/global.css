@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/*
+ * Jetons de conception repris du fichier .pen de la boulangerie.
+ * Le guide pen.dev demande de declarer les valeurs simples dans :root et de
+ * ne jamais y stocker de pile de polices : celles-ci vont dans @layer base.
+ */
+:root {
+  --color-cream: #fbf7f0;
+  --color-band: #f3ead9;
+  --color-ink: #2b1d14;
+  --color-muted: #7a6a5c;
+  --color-accent: #c2410c;
+  --color-line: #e8dcc8;
+  --color-line-soft: #d9c9b0;
+  --color-night: #241811;
+  --color-night-soft: #3a2a1e;
+  --color-night-muted: #d9c9b0;
+  --color-night-faint: #9c8874;
+  --color-accent-soft: #e8a87c;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  /* Piles de polices : une classe par famille, jamais de variable. */
+  .font-display {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  .font-body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+  }
+
+  .font-mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+}

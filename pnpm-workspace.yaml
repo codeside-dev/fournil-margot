@@ -1,0 +1,7 @@
+# pnpm 12 refuse par defaut les scripts d'installation des dependances, et
+# echoue (ERR_PNPM_IGNORED_BUILDS) au lieu de se contenter d'un avertissement.
+# esbuild est requis par Vite/Astro, sharp par l'optimisation d'images :
+# leurs scripts doivent s'executer.
+allowBuilds:
+  esbuild: true
+  sharp: true
