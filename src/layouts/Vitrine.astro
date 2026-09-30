@@ -24,7 +24,7 @@ const nav = [
 
   <header class="border-b border-[var(--color-line-soft)] bg-[var(--color-cream)]">
     <div
-      class="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-[22px] lg:px-[72px]"
+      class="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-[22px] lg:px-[72px]"
     >
       <a href="/" class="flex items-center gap-3">
         <span
@@ -34,7 +34,10 @@ const nav = [
         <span class="font-display text-xl font-semibold">Le Fournil de Margot</span>
       </a>
 
-      <nav class="hidden items-center gap-7 md:flex" aria-label="Principale">
+      <nav
+        class="order-3 flex w-full flex-wrap items-center gap-x-5 gap-y-2 md:order-none md:w-auto md:gap-7"
+        aria-label="Principale"
+      >
         {
           nav.map((lien) => (
             <a
@@ -68,14 +71,24 @@ const nav = [
       </p>
       <div class="flex gap-6">
         {
-          ["Mentions légales", "Livraison", "Contact"].map((lien) => (
-            <a
-              href="#"
-              class="text-[13px] text-[var(--color-night-faint)] transition hover:text-[var(--color-cream)]"
-            >
-              {lien}
-            </a>
-          ))
+          [
+            { label: "Mentions légales", href: null },
+            { label: "Livraison", href: null },
+            { label: "Contact", href: "/#trouver" },
+          ].map((lien) =>
+            lien.href ? (
+              <a
+                href={lien.href}
+                class="text-[13px] text-[var(--color-night-faint)] transition hover:text-[var(--color-cream)]"
+              >
+                {lien.label}
+              </a>
+            ) : (
+              <span class="text-[13px] text-[var(--color-night-faint)]">
+                {lien.label}
+              </span>
+            ),
+          )
         }
       </div>
     </div>
