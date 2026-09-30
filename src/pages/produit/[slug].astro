@@ -1,0 +1,135 @@
+---
+import Vitrine from "../../layouts/Vitrine.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import { produits, produitParSlug } from "../../data/produits";
+
+export function getStaticPaths() {
+  return produits.map((produit) => ({
+    params: { slug: produit.slug },
+    props: { produit },
+  }));
+}
+
+const { produit } = Astro.props;
+
+const apparentes = produits.filter((p) => p.slug !== produit.slug).slice(0, 3);
+
+const details = [
+  { titre: "Composition", texte: produit.composition },
+  { titre: "Conservation", texte: produit.conservation },
+  { titre: "Allergènes", texte: produit.allergenes },
+];
+---
+
+<Vitrine
+  title={`${produit.nom} — Le Fournil de Margot`}
+  description={produit.description}
+>
+  <nav
+    class="mx-auto w-full max-w-[1440px] px-6 pt-8 lg:px-[72px]"
+    aria-label="Fil d'Ariane"
+  >
+    <ol class="flex flex-wrap items-center gap-2 text-xs text-[var(--color-muted)]">
+      <li><a href="/" class="transition hover:text-[var(--color-ink)]">Accueil</a></li>
+      <li aria-hidden="true">›</li>
+      <li>
+        <a href="/#boutique" class="transition hover:text-[var(--color-ink)]">Boutique</a>
+      </li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-[var(--color-ink)]">{produit.nom}</li>
+    </ol>
+  </nav>
+
+  <section
+    class="mx-auto grid w-full max-w-[1440px] items-start gap-14 px-6 py-12 lg:grid-cols-2 lg:px-[72px]"
+  >
+    <div class="rounded-3xl bg-[var(--color-band)] p-10">
+      <img
+        src={produit.image.src}
+        alt={produit.nom}
+        width={produit.image.width}
+        height={produit.image.height}
+        class="h-[420px] w-full rounded-2xl object-cover"
+      />
+    </div>
+
+    <div class="flex flex-col gap-5">
+      <p
+        class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]"
+      >
+        {produit.categorie}
+      </p>
+      <h1 class="font-display text-[36px] font-semibold leading-tight sm:text-[44px]">
+        {produit.nom}
+      </h1>
+      <p class="text-2xl">{produit.prix}</p>
+      <p class="max-w-[560px] text-lg text-[var(--color-muted)]">
+        {produit.description}
+      </p>
+
+      <dl class="flex flex-col gap-2.5 border-t border-[var(--color-line)] pt-5">
+        <div class="flex items-center justify-between">
+          <dt class="text-sm text-[var(--color-muted)]">Format</dt>
+          <dd class="font-mono text-sm">{produit.poids}</dd>
+        </div>
+        <div class="flex items-center justify-between">
+          <dt class="text-sm text-[var(--color-muted)]">Retrait</dt>
+          <dd class="font-mono text-sm">Au fournil, dès 8h</dd>
+        </div>
+      </dl>
+
+      <button
+        type="button"
+        class="self-start rounded-[10px] bg-[var(--color-accent)] px-8 py-[15px] text-base font-semibold text-white transition hover:brightness-110"
+      >
+        Ajouter au panier
+      </button>
+
+      <p class="text-sm text-[var(--color-muted)]">
+        Commandé avant 10h, retiré l'après-midi. Livraison offerte à Lyon dès 30 €.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-band)]">
+    <div
+      class="mx-auto grid w-full max-w-[1440px] gap-5 px-6 py-20 md:grid-cols-3 lg:px-[72px]"
+    >
+      {
+        details.map((d) => (
+          <div class="flex flex-col gap-3 rounded-2xl bg-white p-[26px]">
+            <h2 class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
+              {d.titre.toUpperCase()}
+            </h2>
+            <p class="text-[15px] leading-relaxed text-[var(--color-muted)]">
+              {d.texte}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    class="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-6 py-24 lg:px-[72px]"
+  >
+    <h2 class="font-display text-[32px] font-semibold sm:text-[40px]">
+      À compléter avec.
+    </h2>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        apparentes.map((p) => (
+          <ProductCard
+            slug={p.slug}
+            image={p.image}
+            categorie={p.categorie}
+            categorieSlug={p.categorieSlug}
+            name={p.nom}
+            description={p.description}
+            price={p.prix}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Vitrine>

@@ -1,16 +1,9 @@
 ---
-import Base from "../layouts/Base.astro";
+import Vitrine from "../layouts/Vitrine.astro";
 import ProductCard from "../components/ProductCard.astro";
+import { produits, filtres } from "../data/produits";
 
 import hero from "../assets/hero.jpg";
-import tradition from "../assets/tradition.jpg";
-import campagne from "../assets/campagne.jpg";
-import seigle from "../assets/seigle.jpg";
-import croissant from "../assets/croissant.jpg";
-import chocolat from "../assets/chocolat.jpg";
-import tarte from "../assets/tarte.jpg";
-
-const nav = ["La boulangerie", "Nos produits", "Nous trouver"];
 
 const valeurs = [
   {
@@ -30,64 +23,6 @@ const valeurs = [
   },
 ];
 
-/* Les categories servent deux fois : le libelle affiche sur la carte produit,
-   et le filtre. Le slug fait le lien entre les deux. */
-const categories = [
-  { slug: "pains", label: "Pains", etiquette: "PAINS" },
-  { slug: "viennoiseries", label: "Viennoiseries", etiquette: "VIENNOISERIES" },
-  { slug: "patisseries", label: "Pâtisseries", etiquette: "PÂTISSERIES" },
-];
-
-const slugDe = (etiquette: string) =>
-  categories.find((c) => c.etiquette === etiquette)?.slug ?? "autre";
-
-const filtres = [{ slug: "tout", label: "Tout" }, ...categories];
-
-const produits = [
-  {
-    image: tradition,
-    categorie: "PAINS",
-    nom: "Tradition au levain",
-    description: "Farine T65 de la Drôme, croûte épaisse, mie dense.",
-    prix: "4,20 €",
-  },
-  {
-    image: campagne,
-    categorie: "PAINS",
-    nom: "Campagne aux graines",
-    description: "Tournesol, lin et sésame. Se garde trois jours.",
-    prix: "4,80 €",
-  },
-  {
-    image: seigle,
-    categorie: "PAINS",
-    nom: "Seigle complet",
-    description: "Dense et long en bouche, parfait avec un fromage.",
-    prix: "5,10 €",
-  },
-  {
-    image: croissant,
-    categorie: "VIENNOISERIES",
-    nom: "Croissant pur beurre",
-    description: "Beurre AOP, 72 heures de fermentation lente.",
-    prix: "1,40 €",
-  },
-  {
-    image: chocolat,
-    categorie: "VIENNOISERIES",
-    nom: "Pain au chocolat",
-    description: "Deux barres de chocolat noir à 70 %.",
-    prix: "1,60 €",
-  },
-  {
-    image: tarte,
-    categorie: "PÂTISSERIES",
-    nom: "Tarte aux pommes",
-    description: "Pommes du Forez, pâte brisée au beurre frais.",
-    prix: "4,50 €",
-  },
-];
-
 const horaires = [
   { jour: "Mardi – Vendredi", heures: "7h – 19h30", ferme: false },
   { jour: "Samedi", heures: "7h – 20h", ferme: false },
@@ -95,193 +30,156 @@ const horaires = [
   { jour: "Lundi", heures: "Fermé", ferme: true },
 ];
 
-const pied = ["Mentions légales", "Livraison", "Contact"];
-
 /* L'etat actif est porte par aria-pressed : le style suit l'attribut, donc
    le script n'a aucune classe a manipuler. */
 const classeFiltre =
   "rounded-full border border-[var(--color-line-soft)] bg-[var(--color-cream)] px-4 py-2.5 text-[13px] text-[var(--color-muted)] transition hover:text-[var(--color-ink)] aria-pressed:border-transparent aria-pressed:bg-[var(--color-ink)] aria-pressed:font-semibold aria-pressed:text-[var(--color-cream)]";
 ---
 
-<Base
+<Vitrine
   title="Le Fournil de Margot — Boulangerie artisanale à Lyon"
   description="Boulangerie artisanale à Lyon 6e. Farines de la Drôme, levain naturel entretenu depuis 1998, cuisson au four à bois. Commandez en ligne, retirez au fournil."
 >
-  <div class="bg-[var(--color-ink)] px-6 py-2.5 text-center lg:px-[72px]">
-    <p class="font-mono text-xs tracking-[0.5px] text-[var(--color-band)]">
-      Commandes en ligne — retrait en boutique dès 8h, livraison à Lyon 6e
-    </p>
-  </div>
-
-  <header class="border-b border-[var(--color-line-soft)] bg-[var(--color-cream)]">
-    <div class="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-[22px] lg:px-[72px]">
-      <a href="/" class="flex items-center gap-3">
-        <span class="grid size-[34px] place-items-center rounded-[10px] bg-[var(--color-accent)] font-display text-[17px] font-semibold text-[var(--color-cream)]">M</span>
-        <span class="font-display text-xl font-semibold">Le Fournil de Margot</span>
-      </a>
-
-      <nav class="hidden items-center gap-7 md:flex" aria-label="Principale">
-        {nav.map((lien) => (
-          <a href="#" class="text-sm text-[var(--color-muted)] transition hover:text-[var(--color-ink)]">{lien}</a>
-        ))}
-        <button type="button" class="rounded-[10px] bg-[var(--color-ink)] px-[18px] py-2.5 text-[13px] font-semibold text-[var(--color-cream)] transition hover:bg-[var(--color-night)]">
-          Panier · 0
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 py-16 lg:grid-cols-2 lg:px-[72px]">
-      <div class="flex flex-col gap-6">
-        <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
-          BOULANGERIE ARTISANALE · LYON 6e
-        </p>
-        <h1 class="font-display text-[40px] font-semibold leading-[1.05] tracking-tight sm:text-[56px]">
-          Le pain comme on le faisait avant.
-        </h1>
-        <p class="max-w-[560px] text-lg text-[var(--color-muted)]">
-          Farines de la Drôme, levain naturel entretenu depuis 1998, et tout ce qui sort du four à sept heures du matin.
-        </p>
-        <div class="flex flex-wrap items-center gap-3.5">
-          <a href="#boutique" class="rounded-[10px] bg-[var(--color-accent)] px-7 py-[15px] text-base font-semibold text-white transition hover:brightness-110">
-            Commander en ligne
-          </a>
-          <a href="#boutique" class="rounded-[10px] border border-[var(--color-line-soft)] px-7 py-[15px] text-base font-medium transition hover:bg-white">
-            Voir nos produits
-          </a>
-        </div>
-        <p class="text-sm text-[var(--color-muted)]">Ouvert du mardi au dimanche · 7h – 19h30</p>
+  <section
+    class="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 py-16 lg:grid-cols-2 lg:px-[72px]"
+  >
+    <div class="flex flex-col gap-6">
+      <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">
+        BOULANGERIE ARTISANALE · LYON 6e
+      </p>
+      <h1 class="font-display text-[40px] font-semibold leading-[1.05] tracking-tight sm:text-[56px]">
+        Le pain comme on le faisait avant.
+      </h1>
+      <p class="max-w-[560px] text-lg text-[var(--color-muted)]">
+        Farines de la Drôme, levain naturel entretenu depuis 1998, et tout ce qui sort du four à sept heures du matin.
+      </p>
+      <div class="flex flex-wrap items-center gap-3.5">
+        <a href="#boutique" class="rounded-[10px] bg-[var(--color-accent)] px-7 py-[15px] text-base font-semibold text-white transition hover:brightness-110">
+          Commander en ligne
+        </a>
+        <a href="#boutique" class="rounded-[10px] border border-[var(--color-line-soft)] px-7 py-[15px] text-base font-medium transition hover:bg-white">
+          Voir nos produits
+        </a>
       </div>
+      <p class="text-sm text-[var(--color-muted)]">Ouvert du mardi au dimanche · 7h – 19h30</p>
+    </div>
 
-      <div class="flex flex-col items-center gap-7 rounded-3xl bg-[var(--color-band)] p-10">
-        <div class="flex gap-2.5">
-          {["Fait main", "Farine bio"].map((chip) => (
-            <span class="rounded-full bg-[var(--color-cream)] px-3.5 py-[7px] font-mono text-xs">{chip}</span>
+    <div class="flex flex-col items-center gap-7 rounded-3xl bg-[var(--color-band)] p-10">
+      <div class="flex gap-2.5">
+        {["Fait main", "Farine bio"].map((chip) => (
+          <span class="rounded-full bg-[var(--color-cream)] px-3.5 py-[7px] font-mono text-xs">{chip}</span>
+        ))}
+      </div>
+      <img
+        src={hero.src}
+        alt="Pains au levain sortis du four"
+        width={hero.width}
+        height={hero.height}
+        class="h-[300px] w-full rounded-2xl object-cover"
+      />
+      <p class="font-mono text-[13px] text-[var(--color-muted)]">Levain naturel · 24 h de pousse</p>
+    </div>
+  </section>
+
+  <section id="maison" class="mx-auto flex w-full max-w-[1440px] flex-col gap-12 px-6 py-24 lg:px-[72px]">
+    <div class="flex flex-col gap-4">
+      <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">LA MAISON</p>
+      <h2 class="max-w-[720px] font-display text-[32px] font-semibold leading-tight sm:text-[40px]">
+        Trois générations, un seul levain.
+      </h2>
+      <p class="max-w-[760px] text-lg text-[var(--color-muted)]">
+        Margot a ouvert le fournil en 1998 avec un pétrin d'occasion et la recette de sa grand-mère. Vingt-huit ans plus tard, le levain est toujours le même — nourri chaque matin, jamais remplacé. La boutique a grandi, pas la méthode.
+      </p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-3">
+      {valeurs.map((v) => (
+        <div class="flex flex-col gap-3 rounded-2xl border border-[var(--color-line)] bg-white p-[26px]">
+          <h3 class="font-display text-xl font-semibold">{v.titre}</h3>
+          <p class="text-[15px] text-[var(--color-muted)]">{v.texte}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="boutique" class="bg-[var(--color-band)]">
+    <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-6 py-24 lg:px-[72px]">
+      <div class="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+        <div class="flex flex-col gap-3.5">
+          <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">LA BOUTIQUE</p>
+          <h2 class="font-display text-[32px] font-semibold sm:text-[40px]">Nos produits, à emporter.</h2>
+          <p class="text-base text-[var(--color-muted)]">Commandez avant 10h, retirez au fournil l'après-midi.</p>
+        </div>
+
+        <div
+          class="flex flex-wrap gap-2.5"
+          role="group"
+          aria-label="Filtrer les produits par catégorie"
+        >
+          {filtres.map((f, i) => (
+            <button
+              type="button"
+              class={classeFiltre}
+              data-filtre={f.slug}
+              aria-pressed={i === 0 ? "true" : "false"}
+            >
+              {f.label}
+            </button>
           ))}
         </div>
-        <img
-          src={hero.src}
-          alt="Pains au levain sortis du four"
-          width={hero.width}
-          height={hero.height}
-          class="h-[300px] w-full rounded-2xl object-cover"
-        />
-        <p class="font-mono text-[13px] text-[var(--color-muted)]">Levain naturel · 24 h de pousse</p>
-      </div>
-    </section>
-
-    <section class="mx-auto flex w-full max-w-[1440px] flex-col gap-12 px-6 py-24 lg:px-[72px]">
-      <div class="flex flex-col gap-4">
-        <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">LA MAISON</p>
-        <h2 class="max-w-[720px] font-display text-[32px] font-semibold leading-tight sm:text-[40px]">
-          Trois générations, un seul levain.
-        </h2>
-        <p class="max-w-[760px] text-lg text-[var(--color-muted)]">
-          Margot a ouvert le fournil en 1998 avec un pétrin d'occasion et la recette de sa grand-mère. Vingt-huit ans plus tard, le levain est toujours le même — nourri chaque matin, jamais remplacé. La boutique a grandi, pas la méthode.
-        </p>
       </div>
 
-      <div class="grid gap-5 md:grid-cols-3">
-        {valeurs.map((v) => (
-          <div class="flex flex-col gap-3 rounded-2xl border border-[var(--color-line)] bg-white p-[26px]">
-            <h3 class="font-display text-xl font-semibold">{v.titre}</h3>
-            <p class="text-[15px] text-[var(--color-muted)]">{v.texte}</p>
-          </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-grille>
+        {produits.map((p) => (
+          <ProductCard
+            slug={p.slug}
+            image={p.image}
+            categorie={p.categorie}
+            categorieSlug={p.categorieSlug}
+            name={p.nom}
+            description={p.description}
+            price={p.prix}
+          />
         ))}
       </div>
-    </section>
 
-    <section id="boutique" class="bg-[var(--color-band)]">
-      <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-6 py-24 lg:px-[72px]">
-        <div class="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <div class="flex flex-col gap-3.5">
-            <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent)]">LA BOUTIQUE</p>
-            <h2 class="font-display text-[32px] font-semibold sm:text-[40px]">Nos produits, à emporter.</h2>
-            <p class="text-base text-[var(--color-muted)]">Commandez avant 10h, retirez au fournil l'après-midi.</p>
-          </div>
+      <p class="text-sm text-[var(--color-muted)]" data-compteur aria-live="polite">
+        {produits.length} produits
+      </p>
+    </div>
+  </section>
 
-          <div
-            class="flex flex-wrap gap-2.5"
-            role="group"
-            aria-label="Filtrer les produits par catégorie"
-            data-filtres
-          >
-            {filtres.map((f, i) => (
-              <button
-                type="button"
-                class={classeFiltre}
-                data-filtre={f.slug}
-                aria-pressed={i === 0 ? "true" : "false"}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-        </div>
+  <section id="trouver" class="bg-[var(--color-ink)]">
+    <div class="mx-auto grid w-full max-w-[1440px] items-center gap-16 px-6 py-24 lg:grid-cols-2 lg:px-[72px]">
+      <div class="flex flex-col gap-[18px]">
+        <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent-soft)]">NOUS TROUVER</p>
+        <h2 class="font-display text-[32px] font-semibold text-[var(--color-cream)] sm:text-[38px]">Passez nous voir.</h2>
+        <p class="text-base text-[var(--color-night-muted)]">
+          14 rue de la Charité<br />69002 Lyon
+        </p>
+        <p class="text-base text-[var(--color-night-muted)]">
+          04 78 00 00 00<br />bonjour@fournildemargot.fr
+        </p>
+        <a href="#boutique" class="self-start rounded-[10px] bg-[var(--color-accent)] px-[26px] py-3.5 text-[15px] font-semibold text-white transition hover:brightness-110">
+          Commander en ligne
+        </a>
+      </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-grille>
-          {produits.map((p) => (
-            <ProductCard
-              image={p.image}
-              categorie={p.categorie}
-              categorieSlug={slugDe(p.categorie)}
-              name={p.nom}
-              description={p.description}
-              price={p.prix}
-            />
+      <div class="rounded-2xl bg-[var(--color-night-soft)] p-[30px]">
+        <h3 class="mb-4 font-display text-xl font-semibold text-[var(--color-cream)]">Horaires d'ouverture</h3>
+        <dl class="flex flex-col gap-3">
+          {horaires.map((h) => (
+            <div class="flex items-center justify-between">
+              <dt class="text-[15px] text-[var(--color-night-muted)]">{h.jour}</dt>
+              <dd class={h.ferme ? "font-mono text-[15px] text-[var(--color-accent-soft)]" : "font-mono text-[15px] text-[var(--color-cream)]"}>
+                {h.heures}
+              </dd>
+            </div>
           ))}
-        </div>
-
-        <p class="text-sm text-[var(--color-muted)]" data-compteur aria-live="polite">
-          {produits.length} produits
-        </p>
-      </div>
-    </section>
-
-    <section class="bg-[var(--color-ink)]">
-      <div class="mx-auto grid w-full max-w-[1440px] items-center gap-16 px-6 py-24 lg:grid-cols-2 lg:px-[72px]">
-        <div class="flex flex-col gap-[18px]">
-          <p class="font-mono text-xs font-semibold tracking-[1.2px] text-[var(--color-accent-soft)]">NOUS TROUVER</p>
-          <h2 class="font-display text-[32px] font-semibold text-[var(--color-cream)] sm:text-[38px]">Passez nous voir.</h2>
-          <p class="text-base text-[var(--color-night-muted)]">
-            14 rue de la Charité<br />69002 Lyon
-          </p>
-          <p class="text-base text-[var(--color-night-muted)]">
-            04 78 00 00 00<br />bonjour@fournildemargot.fr
-          </p>
-          <a href="#boutique" class="self-start rounded-[10px] bg-[var(--color-accent)] px-[26px] py-3.5 text-[15px] font-semibold text-white transition hover:brightness-110">
-            Commander en ligne
-          </a>
-        </div>
-
-        <div class="rounded-2xl bg-[var(--color-night-soft)] p-[30px]">
-          <h3 class="mb-4 font-display text-xl font-semibold text-[var(--color-cream)]">Horaires d'ouverture</h3>
-          <dl class="flex flex-col gap-3">
-            {horaires.map((h) => (
-              <div class="flex items-center justify-between">
-                <dt class="text-[15px] text-[var(--color-night-muted)]">{h.jour}</dt>
-                <dd class={h.ferme ? "font-mono text-[15px] text-[var(--color-accent-soft)]" : "font-mono text-[15px] text-[var(--color-cream)]"}>
-                  {h.heures}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="bg-[var(--color-night)]">
-    <div class="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-4 px-6 py-[30px] sm:flex-row lg:px-[72px]">
-      <p class="text-[13px] text-[var(--color-night-faint)]">© 2026 Le Fournil de Margot — Boulangerie artisanale à Lyon</p>
-      <div class="flex gap-6">
-        {pied.map((lien) => (
-          <a href="#" class="text-[13px] text-[var(--color-night-faint)] transition hover:text-[var(--color-cream)]">{lien}</a>
-        ))}
+        </dl>
       </div>
     </div>
-  </footer>
+  </section>
 
   <script>
     const boutons = document.querySelectorAll<HTMLButtonElement>("[data-filtre]");
@@ -313,4 +211,4 @@ const classeFiltre =
       });
     });
   </script>
-</Base>
+</Vitrine>

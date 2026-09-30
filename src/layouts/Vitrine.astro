@@ -1,0 +1,83 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const nav = [
+  { label: "La boulangerie", href: "/#maison" },
+  { label: "Nos produits", href: "/#boutique" },
+  { label: "Nous trouver", href: "/#trouver" },
+];
+---
+
+<Base title={title} description={description}>
+  <div class="bg-[var(--color-ink)] px-6 py-2.5 text-center lg:px-[72px]">
+    <p class="font-mono text-xs tracking-[0.5px] text-[var(--color-band)]">
+      Commandes en ligne — retrait en boutique dès 8h, livraison à Lyon 6e
+    </p>
+  </div>
+
+  <header class="border-b border-[var(--color-line-soft)] bg-[var(--color-cream)]">
+    <div
+      class="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-[22px] lg:px-[72px]"
+    >
+      <a href="/" class="flex items-center gap-3">
+        <span
+          class="grid size-[34px] place-items-center rounded-[10px] bg-[var(--color-accent)] font-display text-[17px] font-semibold text-[var(--color-cream)]"
+          >M</span
+        >
+        <span class="font-display text-xl font-semibold">Le Fournil de Margot</span>
+      </a>
+
+      <nav class="hidden items-center gap-7 md:flex" aria-label="Principale">
+        {
+          nav.map((lien) => (
+            <a
+              href={lien.href}
+              class="text-sm text-[var(--color-muted)] transition hover:text-[var(--color-ink)]"
+            >
+              {lien.label}
+            </a>
+          ))
+        }
+        <button
+          type="button"
+          class="rounded-[10px] bg-[var(--color-ink)] px-[18px] py-2.5 text-[13px] font-semibold text-[var(--color-cream)] transition hover:bg-[var(--color-night)]"
+        >
+          Panier · 0
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="bg-[var(--color-night)]">
+    <div
+      class="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-4 px-6 py-[30px] sm:flex-row lg:px-[72px]"
+    >
+      <p class="text-[13px] text-[var(--color-night-faint)]">
+        © 2026 Le Fournil de Margot — Boulangerie artisanale à Lyon
+      </p>
+      <div class="flex gap-6">
+        {
+          ["Mentions légales", "Livraison", "Contact"].map((lien) => (
+            <a
+              href="#"
+              class="text-[13px] text-[var(--color-night-faint)] transition hover:text-[var(--color-cream)]"
+            >
+              {lien}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </footer>
+</Base>

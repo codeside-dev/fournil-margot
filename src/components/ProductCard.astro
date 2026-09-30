@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 
 interface Props {
+  slug: string;
   image: ImageMetadata;
   categorie: string;
   categorieSlug: string;
@@ -10,13 +11,13 @@ interface Props {
   price: string;
 }
 
-const { image, categorie, categorieSlug, name, description, price } =
+const { slug, image, categorie, categorieSlug, name, description, price } =
   Astro.props;
 ---
 
 <article
   data-categorie={categorieSlug}
-  class="flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-white p-[18px]"
+  class="relative flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-white p-[18px] transition hover:border-[var(--color-line-soft)]"
 >
   <div class="overflow-hidden rounded-xl bg-[var(--color-band)]">
     <Image
@@ -36,7 +37,14 @@ const { image, categorie, categorieSlug, name, description, price } =
       {categorie}
     </p>
     <h3 class="font-display text-[21px] font-semibold leading-tight">
-      {name}
+      {/* Le lien couvre toute la carte : le bouton reste cliquable car il
+          repasse au-dessus avec z-10 et position relative. */}
+      <a
+        href={`/produit/${slug}`}
+        class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+      >
+        {name}
+      </a>
     </h3>
     <p class="text-sm leading-relaxed text-[var(--color-muted)]">
       {description}
@@ -47,7 +55,7 @@ const { image, categorie, categorieSlug, name, description, price } =
     <span class="text-lg font-semibold">{price}</span>
     <button
       type="button"
-      class="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-[13px] font-semibold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+      class="relative z-10 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-[13px] font-semibold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
     >
       Ajouter
     </button>
