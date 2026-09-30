@@ -3,16 +3,19 @@ import { Image } from "astro:assets";
 
 interface Props {
   image: ImageMetadata;
-  category: string;
+  categorie: string;
+  categorieSlug: string;
   name: string;
   description: string;
   price: string;
 }
 
-const { image, category, name, description, price } = Astro.props;
+const { image, categorie, categorieSlug, name, description, price } =
+  Astro.props;
 ---
 
 <article
+  data-categorie={categorieSlug}
   class="flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-line)] bg-white p-[18px]"
 >
   <div class="overflow-hidden rounded-xl bg-[var(--color-band)]">
@@ -30,7 +33,7 @@ const { image, category, name, description, price } = Astro.props;
     <p
       class="font-mono text-[11px] font-semibold tracking-[1px] text-[var(--color-accent)]"
     >
-      {category}
+      {categorie}
     </p>
     <h3 class="font-display text-[21px] font-semibold leading-tight">
       {name}

@@ -30,7 +30,18 @@ const valeurs = [
   },
 ];
 
-const filtres = ["Tout", "Pains", "Viennoiseries", "Pâtisseries"];
+/* Les categories servent deux fois : le libelle affiche sur la carte produit,
+   et le filtre. Le slug fait le lien entre les deux. */
+const categories = [
+  { slug: "pains", label: "Pains", etiquette: "PAINS" },
+  { slug: "viennoiseries", label: "Viennoiseries", etiquette: "VIENNOISERIES" },
+  { slug: "patisseries", label: "Pâtisseries", etiquette: "PÂTISSERIES" },
+];
+
+const slugDe = (etiquette: string) =>
+  categories.find((c) => c.etiquette === etiquette)?.slug ?? "autre";
+
+const filtres = [{ slug: "tout", label: "Tout" }, ...categories];
 
 const produits = [
   {
@@ -86,10 +97,10 @@ const horaires = [
 
 const pied = ["Mentions légales", "Livraison", "Contact"];
 
-const classeFiltre = (actif: boolean) =>
-  actif
-    ? "rounded-full bg-[var(--color-ink)] px-4 py-2.5 text-[13px] font-semibold text-[var(--color-cream)]"
-    : "rounded-full border border-[var(--color-line-soft)] bg-[var(--color-cream)] px-4 py-2.5 text-[13px] text-[var(--color-muted)] transition hover:text-[var(--color-ink)]";
+/* L'etat actif est porte par aria-pressed : le style suit l'attribut, donc
+   le script n'a aucune classe a manipuler. */
+const classeFiltre =
+  "rounded-full border border-[var(--color-line-soft)] bg-[var(--color-cream)] px-4 py-2.5 text-[13px] text-[var(--color-muted)] transition hover:text-[var(--color-ink)] aria-pressed:border-transparent aria-pressed:bg-[var(--color-ink)] aria-pressed:font-semibold aria-pressed:text-[var(--color-cream)]";
 ---
 
 <Base
@@ -190,24 +201,41 @@ const classeFiltre = (actif: boolean) =>
             <p class="text-base text-[var(--color-muted)]">Commandez avant 10h, retirez au fournil l'après-midi.</p>
           </div>
 
-          <div class="flex flex-wrap gap-2.5">
+          <div
+            class="flex flex-wrap gap-2.5"
+            role="group"
+            aria-label="Filtrer les produits par catégorie"
+            data-filtres
+          >
             {filtres.map((f, i) => (
-              <button type="button" class={classeFiltre(i === 0)}>{f}</button>
+              <button
+                type="button"
+                class={classeFiltre}
+                data-filtre={f.slug}
+                aria-pressed={i === 0 ? "true" : "false"}
+              >
+                {f.label}
+              </button>
             ))}
           </div>
         </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-grille>
           {produits.map((p) => (
             <ProductCard
               image={p.image}
-              category={p.categorie}
+              categorie={p.categorie}
+              categorieSlug={slugDe(p.categorie)}
               name={p.nom}
               description={p.description}
               price={p.prix}
             />
           ))}
         </div>
+
+        <p class="text-sm text-[var(--color-muted)]" data-compteur aria-live="polite">
+          {produits.length} produits
+        </p>
       </div>
     </section>
 
@@ -254,4 +282,35 @@ const classeFiltre = (actif: boolean) =>
       </div>
     </div>
   </footer>
+
+  <script>
+    const boutons = document.querySelectorAll<HTMLButtonElement>("[data-filtre]");
+    const cartes = document.querySelectorAll<HTMLElement>("[data-categorie]");
+    const compteur = document.querySelector<HTMLElement>("[data-compteur]");
+    const total = cartes.length;
+
+    boutons.forEach((bouton) => {
+      bouton.addEventListener("click", () => {
+        const cible = bouton.dataset.filtre ?? "tout";
+        let visibles = 0;
+
+        boutons.forEach((autre) =>
+          autre.setAttribute("aria-pressed", String(autre === bouton)),
+        );
+
+        cartes.forEach((carte) => {
+          const correspond = cible === "tout" || carte.dataset.categorie === cible;
+          carte.hidden = !correspond;
+          if (correspond) visibles += 1;
+        });
+
+        if (compteur) {
+          compteur.textContent =
+            visibles === total
+              ? `${total} produits`
+              : `${visibles} produit${visibles > 1 ? "s" : ""} sur ${total}`;
+        }
+      });
+    });
+  </script>
 </Base>
