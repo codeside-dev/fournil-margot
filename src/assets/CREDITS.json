@@ -55,11 +55,13 @@
   },
   {
     "slot": "croissant",
-    "query": "croissants basket",
-    "title": "File:American Breakfast (28188218105).jpg",
-    "creator": "Debbie Tingzon from Doha, Qatar",
-    "license": "CC BY 2.0",
-    "source": "https://commons.wikimedia.org/wiki/File:American_Breakfast_(28188218105).jpg",
-    "file": "croissant.png"
+    "query": "croissant",
+    "title": "Croissant",
+    "creator": "Blarvar",
+    "license": "PDM 1.0",
+    "source": "https://www.flickr.com/photos/46583370@N04/4599562280",
+    "via": "Openverse",
+    "file": "croissant.png",
+    "fichier": "croissant.png"
   }
 ]
